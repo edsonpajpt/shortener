@@ -3,16 +3,25 @@ package shortener.infrastructure.adapter.incoming.rest.shorten
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
 import shortener.application.shorten.ShortenCommand
 import shortener.application.shorten.ShortenLinkUseCase
+import shortener.application.shorten.GetAllLinksUseCase
+import shortener.application.shorten.GetAllLinksQuery
+import shortener.application.shorten.GetLinkByIdUseCase
+import shortener.application.shorten.GetLinkByIdQuery
 import shortener.infrastructure.adapter.incoming.rest.shorten.dto.ShortenerLinkRequestDto
 import shortener.infrastructure.adapter.incoming.rest.shorten.dto.ShortenResponseDto
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
+import java.util.UUID
 
 @RestController
 open class ShortenerController(
-    private var useCase : ShortenLinkUseCase
+    private var useCase : ShortenLinkUseCase,
+    private var getAllLinksUseCase: GetAllLinksUseCase,
+    private var getLinkByIdUseCase: GetLinkByIdUseCase
 ){
 
     @PostMapping("/v1/shorten")
@@ -41,6 +50,25 @@ open class ShortenerController(
         )
 
         return ResponseEntity(dto, HttpStatus.CREATED)
+    }
+
+    @GetMapping("/v1/links")
+    fun getAllLinks(): ResponseEntity<Any> {
+        val query = GetAllLinksQuery()
+        val response = getAllLinksUseCase.execute(query)
+        return ResponseEntity.ok(response.links)
+    }
+
+    @GetMapping("/v1/links/{id}")
+    fun getLinkById(@PathVariable id: UUID): ResponseEntity<Any> {
+        val query = GetLinkByIdQuery(id = id)
+        val response = getLinkByIdUseCase.execute(query)
+        
+        return if (response.link != null) {
+            ResponseEntity.ok(response.link)
+        } else {
+            ResponseEntity.status(HttpStatus.NOT_FOUND).build()
+        }
     }
 
 }

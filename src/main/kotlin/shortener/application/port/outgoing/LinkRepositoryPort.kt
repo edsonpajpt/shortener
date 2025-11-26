@@ -6,4 +6,5 @@ import java.util.UUID
 interface LinkRepositoryPort {
     fun save(link: Link)
     fun findById(id: UUID) : Link?
+    fun findAll(): List<Link>
 }

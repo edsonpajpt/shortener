@@ -17,6 +17,8 @@ class ShortenLinkUseCaseServiceTest {
         }
 
         override fun findById(id: UUID): Link? = storage[id]
+
+        override fun findAll(): List<Link> = storage.values.toList()
     }
 
     private class InMemoryGenerator : shortener.domain.service.ShortLinkGenerator {

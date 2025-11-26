@@ -24,4 +24,15 @@ class LinkRepositoryJPA (
             throw IllegalArgumentException("Id not found!")
         }
     }
+
+    override fun findAll(): List<Link> {
+        return springDataLinkRepository.findAll().map { entity ->
+            Link(
+                id = entity.id ?: throw IllegalArgumentException("Entity id cannot be null"),
+                originalLink = entity.originalLink,
+                shortLink = entity.shortLink,
+                lastUpdate = entity.lastUpdate
+            )
+        }
+    }
 }
