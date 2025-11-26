@@ -2,7 +2,7 @@ package shortener.infrastructure.adapter.outgoing.jpa
 
 import org.springframework.stereotype.Repository
 import shortener.domain.model.Link
-import shortener.infrastructure.adapter.outgoing.LinkRepositoryPort
+import shortener.application.port.outgoing.LinkRepositoryPort
 import shortener.infrastructure.adapter.outgoing.jpa.entity.LinkEntity
 import java.util.UUID
 

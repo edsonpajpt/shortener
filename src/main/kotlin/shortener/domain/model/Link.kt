@@ -8,9 +8,5 @@ data class Link(
     val originalLink: String,
     val shortLink: String? = "",
     val lastUpdate: LocalDateTime
-){
-    fun shorten() : String{
-        return originalLink.take(2)
-    }
-}
+)
 
