@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
 import shortener.application.shorten.ShortenCommand
 import shortener.application.shorten.ShortenLinkUseCase
-import shortener.infrastructure.adapter.incoming.rest.shorten.dto.ShortenerLinkRequest
+import shortener.infrastructure.adapter.incoming.rest.shorten.dto.ShortenerLinkRequestDto
 import shortener.infrastructure.adapter.incoming.rest.shorten.dto.ShortenResponseDto
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -16,7 +16,7 @@ open class ShortenerController(
 ){
 
     @PostMapping("/v1/shorten")
-    fun shortenLink(@RequestBody shortenerLinkRequest: ShortenerLinkRequest): ResponseEntity<ShortenResponseDto>{
+    fun shortenLink(@RequestBody shortenerLinkRequest: ShortenerLinkRequestDto): ResponseEntity<ShortenResponseDto>{
         // Este controller está na camada de infraestrutura (entrada HTTP).
         // Ele recebe um DTO específico da API (`ShortenerLinkRequest`) e
         // mapeia para o comando da camada de aplicação (`ShortenCommand`).

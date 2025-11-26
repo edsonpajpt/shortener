@@ -5,14 +5,14 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
-import shortener.infrastructure.adapter.incoming.rest.shorten.dto.ShortenerLinkRequest
+import shortener.infrastructure.adapter.incoming.rest.shorten.dto.ShortenerLinkRequestDto
 
 @RestController
 @RequestMapping("/test")
 open class TestController{
 
     @PostMapping("/shorten")
-    fun shortenLink(@RequestBody originalShortenerLinkRequest: ShortenerLinkRequest){
+    fun shortenLink(@RequestBody originalShortenerLinkRequest: ShortenerLinkRequestDto){
         println("Deu bom >> ${originalShortenerLinkRequest.originalLink
         }")
 

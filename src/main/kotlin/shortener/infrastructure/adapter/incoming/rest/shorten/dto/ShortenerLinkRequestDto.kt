@@ -5,6 +5,6 @@ package shortener.infrastructure.adapter.incoming.rest.shorten.dto
 // anotações de serialização ou validações HTTP) da camada de aplicação.
 // A camada de aplicação recebe um `ShortenCommand` (contrato do caso de uso),
 // então o controller faz o mapeamento DTO -> Command.
-data class ShortenerLinkRequest(
+data class ShortenerLinkRequestDto(
     val originalLink: String,
 )
