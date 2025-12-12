@@ -1,5 +1,6 @@
 package shortener.infrastructure.adapter.incoming.rest.shorten
 
+import org.springframework.http.HttpHeaders
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
@@ -65,7 +66,10 @@ class ShortenerController(
         val response = getLinkByIdUseCase.execute(query)
         
         return if (response.link != null) {
-            ResponseEntity.ok(response.link)
+            ResponseEntity
+                .status(HttpStatus.PERMANENT_REDIRECT)
+                .header(HttpHeaders.LOCATION, response.link.originalLink)
+                .build()
         } else {
             ResponseEntity.status(HttpStatus.NOT_FOUND).build()
         }
