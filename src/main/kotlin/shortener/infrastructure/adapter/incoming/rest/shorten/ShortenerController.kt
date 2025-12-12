@@ -18,7 +18,7 @@ import org.springframework.http.ResponseEntity
 import java.util.UUID
 
 @RestController
-open class ShortenerController(
+class ShortenerController(
     private var useCase : ShortenLinkUseCase,
     private var getAllLinksUseCase: GetAllLinksUseCase,
     private var getLinkByIdUseCase: GetLinkByIdUseCase
